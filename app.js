@@ -4,6 +4,7 @@
 
 // Space Devs development endpoint: no rate limits, but the data is stale and limited.
 const BASE_URL = "https://lldev.thespacedevs.com/2.3.0";
+const status = document.getElementById("status");
 
 // ---------------------------------------------------------------
 // PART 1: XMLHttpRequest and callbacks
@@ -15,11 +16,14 @@ const BASE_URL = "https://lldev.thespacedevs.com/2.3.0";
 // - Calls the callback function and passes the results array
 // TODO: Implement XHR GET request
 function getUpcomingLaunches() {
+  status.textContent = "Loading...";
   axios.get(BASE_URL + "/launches/upcoming/").then(function (response) {
+    status.textContent = "";
+
     populateDropdown(response.data.results);
     })
     .catch(function (error) {
-      console.log(error);
+      status.textContent = "Error loading launches: " + error.message;
     });
 
 }
@@ -55,11 +59,13 @@ document.getElementById("launchDropdown").addEventListener("change", function ()
 // - Parses the response and passes the launch object to the callback
 // TODO: Implement XHR GET request for a single launch
 function getLaunchDetails(launchId) {
+  status.textContnent = "Loading...";
   axios.get(BASE_URL + "/launches/" + launchId + "/").then(function (response) {
+      status.textContent = "";
       displayLaunchInfo(response.data);
     })
     .catch(function (error) {
-      console.log(error);
+      status.textContent = "Error loading launch details: " + error.message;
     });
 }
 
