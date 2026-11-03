@@ -1,2 +1,95 @@
 /* Part 3: Add custom styling here (colors, fonts, layout, spacing).
    The starter provides no styles. */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #1a1a40, #3b1f74, #4f46e5);
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+h1 {
+    font-size: 3rem;
+    color: #c4b5fd;
+    text-shadow: 0 0 10px #8b5cf6;
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: 10px;
+}
+
+#launchDropdown {
+    width: 300px;
+    max-width: 90%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 2px solid #a78bfa;
+    border-radius: 12px;
+    background-color: #312e81;
+    color: white;
+    cursor: pointer;
+}
+
+#launchDropdown:hover {
+    background-color: #4338ca;
+}
+
+#status {
+    margin: 15px;
+    font-weight: bold;
+    color: #fcd34d;
+}
+
+#missionDetails {
+    margin: 25px auto;
+    padding: 20px;
+    max-width: 800px;
+    background-color: rgba(255, 255, 255, 0.12);
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(167, 139, 250, 0.5);
+}
+
+#missionDetails h2 {
+    color: #ddd6fe;
+}
+
+#missionDetails p {
+    line-height: 1.6;
+}
+
+#rocket {
+    margin-top: 20px;
+}
+
+#rocket img {
+    max-width: 100%;
+    width: 600px;
+    border-radius: 15px;
+    border: 4px solid #a488f8;
+    box-shadow: 0 0 25px rgba(138, 92, 246, 0.8);
+}
+
+#rocket img:hover {
+    transform: scale(1.02);
+    transition: 0.3s;
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    #missionDetails {
+        padding: 15px;
+    }
+
+    #launchDropdown {
+        width: 95%;
+    }
+}
