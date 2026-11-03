@@ -16,10 +16,10 @@ const BASE_URL = "https://lldev.thespacedevs.com/2.3.0";
 // TODO: Implement XHR GET request
 function getUpcomingLaunches(callback) {
   const xhr = new XMLHttpRequest();
-  xhr.open("Get",BASE_URL + "/launches/upcoming/");
+  xhr.open("GET",BASE_URL + "/launches/upcoming/");
   xhr.onreadystatechange = function() {
-    if (xhr.readystate === 4 && xhr.status === 200) {
-      const data = JSON.parse(xhr.resonseText);
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      const data = JSON.parse(xhr.responseText);
       callback(data.results);
     }
 
@@ -52,7 +52,7 @@ document.getElementById("launchDropdown").addEventListener("change", function ()
   const launchId = this.value;
 
   getLaunchDetails(launchId,displayLaunchInfo);
-  
+
 });
 
 // Step 4: Create getLaunchDetails(launchId, callback)
@@ -61,9 +61,9 @@ document.getElementById("launchDropdown").addEventListener("change", function ()
 // TODO: Implement XHR GET request for a single launch
 function getLaunchDetails(launchId, callback) {
   const xhr = new XMLHttpRequest();
-  xhr.open("GET", Base_URL + "/launches/" +launchId + "/");
+  xhr.open("GET", BASE_URL + "/launches/" +launchId + "/");
   xhr.onreadystatechange = function() {
-    if (xhr.readystate === 4 && xhr.status === 200) {
+    if (xhr.readyState === 4 && xhr.status === 200) {
       const data = JSON.parse(xhr.responseText);
         callback(data);
     }
@@ -76,10 +76,45 @@ function getLaunchDetails(launchId, callback) {
 // - Updates #missionDetails with the mission name and description (if available)
 // - Creates an image of the rocket (launch.rocket.configuration.image.image_url) and appends it to #rocket
 // - If no image is available, displays a message instead
+// TODO: Display mission name and description
+// TODO: Display the rocket image
 function displayLaunchInfo(launch) {
-  // TODO: Display mission name and description
-  // TODO: Display the rocket image
+  const missionDetails = document.getElementById("missionDetails");
+  const rocket = document.getElementById("rocket");
+
+  missionDetails.textContent = "";
+  rocket.textContent = "";
+
+  const title = document.createElement("h2");
+  title.textContent = launch.name;
+  missionDetails.appendChild(title);
+
+  const description = document.createElement("p");
+
+  if (launch.mission && launch.mission.description) {
+    description.textContent = launch.mission.description;
+  } else {
+      description.textContent = "No mission description avaliable.";
+  }
+
+  missionDetails.appendChild(description);
+
+  if (
+    launch.rocket &&
+    launch.rocket.configuration &&
+    launch.rocket.configuration.image &&
+    launch.rocket.configuration.image.image_url
+  ) {
+    const img = document.createElement("img");
+    img.src = launch.rocket.configuration.image.image_url;
+    img.alt = launch.name;
+
+  rocket.appendChild(img);
+  } else {
+      rocket.textContent = "No rocket image available.";
+  }
 }
+
 
 // Final step: kick off the flow
 getUpcomingLaunches(populateDropdown);
